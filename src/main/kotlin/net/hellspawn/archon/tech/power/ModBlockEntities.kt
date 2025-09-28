@@ -1,6 +1,9 @@
 package net.hellspawn.archon.tech.power
 
-import net.hellspawn.archon.tech.power.blocks.GeneratorBlockEntity
+import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
+import net.hellspawn.archon.tech.Archontech.MOD_ID
+import net.hellspawn.archon.tech.power.block.entity.GeneratorBlockEntity
+import net.minecraft.block.entity.BlockEntityTicker
 import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
@@ -12,11 +15,14 @@ object ModBlockEntities {
     fun registerAll() {
         GENERATOR = Registry.register(
             Registries.BLOCK_ENTITY_TYPE,
-            Identifier.of("archontech", "generator"),
-            BlockEntityType.Builder.create(
-                { pos, state -> GeneratorBlockEntity(ModBlockEntities.GENERATOR, pos, state) },
+            Identifier.of(MOD_ID, "generator"),
+            FabricBlockEntityTypeBuilder.create(
+                { pos, state -> GeneratorBlockEntity(GENERATOR, pos, state) },
                 ModBlocks.GENERATOR_BLOCK
-            ).build(null)
+            ).build()
         )
     }
+
+    fun getTicker(): BlockEntityTicker<GeneratorBlockEntity> =
+        BlockEntityTicker { world, pos, state, be -> be.tick() }
 }
