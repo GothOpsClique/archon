@@ -1,7 +1,9 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
 	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
-	id "org.jetbrains.kotlin.jvm" version "2.2.20"
+	id "org.jetbrains.kotlin.jvm" version "${kotlin_version}"
 }
 
 version = project.mod_version
@@ -32,7 +34,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 	modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
 }
 
@@ -48,7 +50,7 @@ tasks.withType(JavaCompile).configureEach {
 	it.options.release = 21
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+tasks.withType(KotlinCompile).all {
 	kotlinOptions {
 		jvmTarget = 21
 	}
