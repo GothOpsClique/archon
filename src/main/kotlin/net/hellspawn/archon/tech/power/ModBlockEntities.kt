@@ -14,7 +14,7 @@ object ModBlockEntities {
 
     fun registerAll() {
         GENERATOR = Registry.register(
-            Registries.BLOCK_ENTITY_TYPE,
+            "generator",
             Identifier.fromNamespaceAndPath(MOD_ID, "generator"),
             FabricBlockEntityTypeBuilder.create(
                 { pos, state -> GeneratorBlockEntity(GENERATOR, pos, state) },
